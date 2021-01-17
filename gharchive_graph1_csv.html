@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- including ECharts file -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- prepare a DOM container with width and height -->
+    <div id="main" style="width: 800px;height:600px;"></div>
+    <script type="text/javascript">
+
+var myChart = echarts.init(document.getElementById('main'));
+
+$.get('http://192.241.141.13:8081/gharchive_graph1_csv').done(function (data) {
+//console.log(data);
+//console.log(data.rows);
+    myChart.setOption({
+        title: {
+            text: 'Apache Cassandra',
+	    subtext: 'Commit Orgs'
+        },
+        tooltip: {},
+	series: [
+        {
+            name: 'org domain',
+            type: 'pie',
+            radius: '55%',
+            center: ['40%', '50%'],
+            data: data.rows,
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+    });
+});
+
+    </script>
+</body>
+
+</html>
